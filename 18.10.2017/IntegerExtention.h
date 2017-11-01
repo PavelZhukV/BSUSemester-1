@@ -1,120 +1,122 @@
 #pragma once
-
 #include<iostream>
-#include<cmath>
 
 using namespace std;
 
-int numberdigit( int long long number)
+long long undnum(long long num)
 {
-	int i = 0;
-	for (; number > 0; i++)
-		number = number / 10;
-	return i;
-}
-
-int valuedigit(int long long number, int order)
-{
-	int a;
-	a = ((number / pow(10, order)) * 10) - (number / pow(10, (order - 1)));
-	return a;
-}
-
-void polynomial(int long long number)
-{
-	int m = numberdigit(number);
-	bool ans = true;
-	for (int i = 1; i <= (m / 2); i++)
-		if (valuedigit(number, i) != valuedigit(number, m - i))
-		{
-			ans = false;
-			break;
-		}
-	if (ans = true)
-		cout << " This number is polynomial";
-}
-
-void increasingdigit(int long long number)
-{
-	int m = numberdigit(number);
-	bool ans = true;
-	for (int i = m; i > 1; i--)
-		if (valuedigit(number, i) < valuedigit(number, i-1))
-		{
-			ans = false;
-			break;
-		}
-	if (ans = true)
-		cout << " This number have increasing digits";
-}
-
-void nonstrincreasingdigit(int long long number)
-{
-	int m = numberdigit(number);
-	bool ans = true;
-	for (int i = m; i > 1; i--)
-		if (valuedigit(number, i) <= valuedigit(number, i - 1))
-		{
-			ans = false;
-			break;
-		}
-	if (ans = true)
-		cout << " This number have non-srictly increasing digits";
-}
-
-void decreasingdigit(int long long number)
-{
-	int m = numberdigit(number);
-	bool ans = true;
-	for (int i = m; i > 1; i--)
-		if (valuedigit(number, i) > valuedigit(number, i - 1))
-		{
-			ans = false;
-			break;
-		}
-	if (ans = true)
-		cout << " This number have decreasing digits";
-}
-
-void nonstrdecreasingdigit(int long long number)
-{
-	int m = numberdigit(number);
-	bool ans = true;
-	for (int i = m; i > 1; i--)
-		if (valuedigit(number, i) >= valuedigit(number, i - 1))
-		{
-			ans = false;
-			break;
-		}
-	if (ans = true)
-		cout << " This number have non-srictly decreasing digits";
-}
-
-int biggestsq(long long int number)
-{
-	int m = numberdigit(number);
-	for (int i = m, j = 0,k = 0; i > 1; i++)
+	long long undnum = 0;
+	int rest = num % 10;
+	while (num)
 	{
-		if (valuedigit(number, i) == valuedigit(number, i - 1))
-
+		rest = num % 10;
+		undnum = undnum * 10 + rest;
+		num /= 10;
 	}
-
+	return undnum;
 }
 
-int newnumber(int long long number, int digit, int newdigit)
+void ans(long long num)
 {
-	int m = numberdigit(number);
-	for (int i = m; i > 1; i++)
-		if (valuedigit(number, i) == digit)
-			number = (number / pow(10, i)) + (newdigit * pow(10, i - 1)) + (number % pow(10, i - 1));
-	return number;
+	if (num == undnum(num))
+		cout << "this number is polynomyal";
+	else
+		cout << "this number isn't polynomyal";
 }
 
-int delnumber(int long long number, int digit, int newdigit)
+void counter(long long num, int & less, int & more, int & equal)
 {
-	int m = numberdigit(number);
-	for (int i = m; i > 1; i++)
-		if (valuedigit(number, i) == digit)
-			number = (number / pow(10, i)) + (number % pow(10, i - 1));
-	return number;
+	int prev = num % 10, next;
+	num /= 10;
+	while (num)
+	{
+		next = num % 10;
+		if (prev == next)
+			equal++;
+		if (prev > next)
+			more++;
+		if (prev < next)
+			less++;
+		prev = next;
+		num /= 10;
+	}
+}
+
+void ans(int less, int more, int equal)
+{
+	if (less == 0 && more == 0 && equal > 0)
+		cout << "monotonus";
+	if (less == 0 && more > 0 && equal == 0)
+		cout << "increasing";
+	if (less > 0 && more == 0 && equal == 0)
+		cout << "descending";
+	if (less > 0 && more == 0 && equal > 0)
+		cout << "not strict descending";
+	if (less == 0 && more > 0 && equal > 0)
+		cout << "not strict increasing";
+	if (less > 0 && more > 0 && equal > 0)
+		cout << "not ordered";
+}
+
+long long longestorder(long long num)
+{
+	long long order = 0, maxorder;
+	int value = 1, prev = num % 10, next, maxvalue = 1;
+	num /= 10;
+	while (num)
+	{
+		next = num % 10;
+		if (next == prev)
+		{
+			order = order * 10 + next;
+			value++;
+		}
+		else
+		{
+			if (value > maxvalue)
+			{
+				maxvalue = value;
+			}
+			if (order > maxorder)
+			{
+				maxorder = order;
+			}
+			value = 0;
+			order = 0;
+		}
+		prev = next;
+		num /= 10;
+	}
+	cout << maxorder;
+	return maxvalue;
+}
+
+long long newnum(long long num, int digit, int newdigit)
+{
+	long long newnum = 0;
+	int rest = num % 10;
+	while (num)
+	{
+		rest = num % 10;
+		if (rest == digit)
+			rest = newdigit;
+		newnum = newnum * 10 + rest;
+		num /= 10;
+	}
+	return newnum;
+}
+
+long long newnum(long long num, int del)
+{
+	long long newnum = 0;
+	int rest = num % 10;
+	while (num)
+	{
+		rest = num % 10;
+		num /= 10;
+		if (rest == del)
+			continue;
+		newnum = newnum * 10 + rest;
+	}
+	return newnum;
 }
