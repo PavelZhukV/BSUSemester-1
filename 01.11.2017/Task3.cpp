@@ -2,115 +2,86 @@
 
 using namespace std;
 
-long long dectobin(long long decnum);
-long long undnum(long long num);
-int valuedigit(long long num, int n);
-int binn(int n);
-
+int createsymbol(char symbol);
+int numnersymbol(long long number, char symbol);
 
 int main()
 {
 	long long x;
-	int n;
-	cout << "enter x = ";
+	char y;
+	cout << "enter x : ";
 	cin >> x;
-	cout << "enter digit = ";
-	cin >> n;
-	cout << "numbber digit" << valuedigit(x, n);
+	cout << "enter symbol y : ";
+	cin >> y;
+	cout << "number " << y << " on hexademical represantation : " << numnersymbol(x,y) << endl;
 	system("pause");
+	return 0;
 }
 
-long long dectobin(long long decnum)
+int createsymbol(char symbol)
 {
-	long long binnum = 0;
-	while (decnum)
+	int n;
+	switch (symbol)
 	{
-		binnum = binnum * 10 + decnum % 2;
-		decnum /= 2;
-		binnum = undnum(binnum);
-	}
-	return binnum;
-}
-
-long long undnum(long long num)
-{
-	long long undnum = 0;
-	int rest = num % 10;
-	while (num)
-	{
-		rest = num % 10;
-		undnum = undnum * 10 + rest;
-		num /= 10;
-	}
-	return undnum;
-}
-
-int valuedigit(long long num, int n)
-{
-	long long binnum = dectobin(num);
-	int rest = 0, value = 0;
-	n = binn(n);
-	while (binnum)
-	{
-		rest = binnum % 10000;
-		if (rest == n)
-			value++;
-	}
-	return value;
-}
-
-int binn(int n)
-{
-	switch (n)
-	{
-	case 1:
-		n = 1;
-		break;
-	case 2:
-		n = 10;
-		break;
-	case 3:
-		n = 11;
-		break;
-	case 4:
-		n = 100;
-		break;
-	case 5:
-		n = 101;
-		break;
-	case 6:
-		n = 110;
-		break;
-	case 7:
-		n = 111;
-		break;
-	case 8:
-		n = 1000;
-		break;
-	case 9:
-		n = 1001;
-		break;
-	case 0:
+	case '0':
 		n = 0;
 		break;
+	case '1':
+		n = 1;
+		break;
+	case '2':
+		n = 2;
+		break;
+	case '3':
+		n = 3;
+		break;
+	case '4':
+		n = 4;
+		break;
+	case '5':
+		n = 5;
+		break;
+	case '6':
+		n = 6;
+		break;
+	case '7':
+		n = 7;
+		break;
+	case '8':
+		n = 8;
+		break;
+	case '9':
+		n = 9;
+		break;
 	case 'A':
-		n = 1010;
+		n = 10;
 		break;
 	case 'B':
-		n = 1011;
+		n = 11;
 		break;
 	case 'C':
-		n = 1100;
+		n = 12;
 		break;
 	case 'D':
-		n = 1101;
+		n = 13;
 		break;
 	case 'E':
-		n = 1110;
+		n = 14;
 		break;
 	case 'F':
-		n = 1111;
-		break;
+		n = 15;
+	}
+	return n;
+}
+
+int numnersymbol(long long number, char symbol)
+{
+	int n = 0;
+	while (number)
+	{
+		if (number % 16 == createsymbol(symbol))
+			n++;
+		number /= 16;
 	}
 	return n;
 }
