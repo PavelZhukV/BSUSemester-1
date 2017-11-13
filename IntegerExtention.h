@@ -212,3 +212,90 @@ int numnersymbol(long long number, char symbol)
 	}
 	return n;
 }
+
+void GenerateRandomArray(int array[], int n, int range)
+{
+	for (int i = 0; i < n; i++)
+	{
+		array[i] = rand() % range - range / 2;//0..range - 1
+	}
+}
+
+void DisplayArray(int array[], int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		cout << array[i] << " ";
+	}
+}
+
+void EnterArray(int array[], int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		cout << " a[" << (i + 1) << "] = ";
+		cin >> array[i];
+	}
+}
+
+int FirstMinIndex(int array[], int n)
+{
+	int min = 0;
+	for (int i = 1; i < n; i++)
+	{
+		if (array[min] > array[i])
+		{
+			min = i;
+		}
+	}
+	return min;
+}
+
+int FirstMaxIndex(int array[], int n)
+{
+	int max = 0;
+	for (int i = 1; i < n; i++)
+	{
+		if (array[max] < array[i])
+		{
+			max = i;
+		}
+	}
+	return max;
+}
+
+void Swap(int& a, int& b)
+{
+	int t = a;
+	a = b;
+	b = t;
+}
+
+void GenerateArray(int array[], int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		array[i] = i + 1;
+	}
+}
+
+void ReverseArray(int array[], int n)
+{
+	for (int i = 0; i < n / 2; i++)
+	{
+		Swap(array[i], array[n - i - 1]);
+	}
+}
+
+void FindAllPrimeElements(int array[], int n, int newArray[], int& m)
+{
+	m = 0;
+	for (int i = 0; i < n; i++)
+	{
+		if (isPrimeNumber(array[i]))
+		{
+			newArray[m] = array[i];
+			m++;
+		}
+	}
+}
