@@ -227,6 +227,7 @@ void DisplayArray(int array[], int n)
 	{
 		cout << array[i] << " ";
 	}
+	cout << endl;
 }
 
 void EnterArray(int array[], int n)
@@ -297,5 +298,77 @@ void FindAllPrimeElements(int array[], int n, int newArray[], int& m)
 			newArray[m] = array[i];
 			m++;
 		}
+	}
+}
+
+void IsSequence(int less, int more, int equal)
+{
+	if (less == 0 && more == 0 && equal > 0)
+		cout << "monotonus";
+	if (less == 0 && more > 0 && equal == 0)
+		cout << "increasing";
+	if (less > 0 && more == 0 && equal == 0)
+		cout << "descending";
+	if (less > 0 && more == 0 && equal > 0)
+		cout << "not strict descending";
+	if (less == 0 && more > 0 && equal > 0)
+		cout << "not strict increasing";
+	if (less > 0 && more > 0 && equal >= 0)
+		cout << "not ordered";
+}
+
+void Counter(int array[], int n, int & less, int & more, int & equal)
+{
+	for (int i = 0; i < n - 1; i++)
+	{
+		if (array[i] == array[i + 1])
+			equal++;
+		if (array[i] > array[i + 1])
+			less++;
+		if (array[i] < array[i + 1])
+			more++;
+	}
+}
+
+void SignArray(int array[], int n, int & plus, int & minus, int & zero)
+{
+	for (int i = 0; i < n; i++)
+	{
+		if (array[i] > 0)
+			plus++;
+		if (array[i] < 0)
+			minus++;
+		if (array[i] == 0)
+			zero++;
+	}
+}
+
+void bubbleSortAscending(int array[], int n)
+{
+	for (int k = 0, i = 0;; k = 0, i = 0)
+	{
+		for (; i < n - 1; i++)
+			if (array[i] > array[i + 1])
+			{
+				Swap(array[i], array[i + 1]);
+				k++;
+			}
+		if (k == 0)
+			break;
+	}
+}
+
+void inclusionSort(int array[], int n)
+{
+	for (int i = 1; i < n; i++)
+	{
+		int value = array[i];
+		int index = i;
+		while ((index > 0) && (array[index - 1] > value))
+		{
+			array[index] = array[index - 1];
+			index--;
+		}
+		array[index] = value;
 	}
 }
