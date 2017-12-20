@@ -13,12 +13,15 @@ bool isAlphabetUpperCase(char ch);
 bool equals(char lhs[], char rhs[], bool foo = false);
 void checkIndex(char string[], char undstring[]);
 void compareOfStrings(char lhs[], char rhs[]);
-int valueIndex(char *arr, char * find, int position);
+int valueIndex(char arr[], char  find[], int position);
 void strCopy(char source[], char  destination[], int from, int to);
 void strConCat(char  source[], char  str1[], int index);
 void strChangeBySymbol(char source[], char ch, int from, int to);
 void strDel(char  source[], char  str[]);
 void strReplace(char  source[], char  str[], char  replace[]);
+void strSwap(char & a, char & b);
+void strReverse(char  source[]);
+void strDisplay(char massive[], int n);
 
 int getLength(char array[])
 {
@@ -207,4 +210,28 @@ void enterstring(char request, char string)
 {
 	cout << request;
 	cin >> string;
+}
+
+void strSwap(char & a, char & b)
+{
+	char temp = a;
+	a = b;
+	b = temp;
+}
+
+void strReverse(char  source[])
+{
+	int length = getLength(source);
+	for (int i = 0; i < length / 2; i++)
+	{
+		swap(source[i], source[length - 1 - i]);
+	}
+}
+
+void strDisplay(char massive[], int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		cout << massive[i];
+	}
 }
